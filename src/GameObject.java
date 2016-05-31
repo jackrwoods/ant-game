@@ -1,6 +1,6 @@
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 //Abstract game object
@@ -10,8 +10,8 @@ public abstract class GameObject
 	protected ID id;
 	
 	public abstract void tick(GameContainer gc, StateBasedGame sbg);
-	public abstract void render(GameContainer gc, StateBasedGame sbg, Graphics g);
-	public abstract Polygon getShape();
+	public abstract void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y);
+	public abstract Shape getShape();
 	
 	public GameObject(ID id)
 	{

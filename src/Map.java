@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 //This stores all of the map data (ie: what tile should be rendered where)
 public class Map {
@@ -25,6 +26,8 @@ public class Map {
 	private void loadValues() {
 		try {
 			int rowWidthSize = (int) Math.sqrt(mapInput.available());
+			width = rowWidthSize;
+			height = rowWidthSize;
 			for (int x = 0; x < rowWidthSize; x++) {
 				for (int y = 0; y < rowWidthSize; y++) {
 					tileType[y][x] = mapInput.read();
@@ -37,10 +40,10 @@ public class Map {
 	
 	private void saveValues() {
 		try {
-			int rowWidthSize = (int) Math.sqrt(mapInput.available());
-			for (int x = 0; x < rowWidthSize; x++) {
-				for (int y = 0; y < rowWidthSize; y++) {
-					tileType[y][x] = mapInput.read();
+			OutputStream mapOutput = new OutputStream("./maps/"+fileName);
+			for (int x = 0; x < tileType.length; x++) {
+				for (int y = 0; y < tileType[].length; y++) {
+					mapOutput.write(tileType[y][x]);
 				}
 			}
 		} catch (IOException e) {
