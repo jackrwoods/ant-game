@@ -19,7 +19,7 @@ public class Tile extends GameObject {
 
     private int x, y, type; //x and y are the coordinates of the tile on the map
     private Shape tile;
-    public Gameobject(int x, int y, int type) {
+    public Tile(int x, int y, int type) {
         super(ID.Tile);
         this.x = x;
         this.y = y;
