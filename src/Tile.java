@@ -34,6 +34,11 @@ public class Tile extends GameObject {
                 g.setColor(Color.darkGray); //TODO: change color to brown using RGB and choose other types/colors for different tiles
             }
             break;
+            case 101:
+            {
+                g.setColor(Color.cyan); //implemented for demo
+            }
+            break;
         }
         tile.setLocation((float) this.x - x, (float) this.y - y);
         g.draw(tile);

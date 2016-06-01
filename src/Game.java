@@ -93,9 +93,9 @@ public class Game extends StateBasedGame{
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
-		//initialize handler
-		handler = new Handler(width, height, getContainer());
-		
+		GameContainer gc = getContainer();
+		this.addState(new GameDemoState(width, height, gc)); //0 - choose gamemode, join/create LAN games, etc
+
 		// Add the various game states, in order          ID
 		this.addState(new GameMenuState(width, height)); //0 - choose gamemode, join/create LAN games, etc
 		this.addState(new GameplayStateAntHill(width, height)); //1 - In-Game state where the player views a cross-section of the ant hill

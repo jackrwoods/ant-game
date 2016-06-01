@@ -21,7 +21,7 @@ public abstract class Ant extends GameObject {
     protected Pathfinder path;
     protected ArrayList<Point> currentPath;
 
-    public Ant(int width, int height, int x, int y, double speed, double dir, int type, Pathfinder path) {
+    public Ant(int width, int height, int x, int y, double speed, double dir, Pathfinder path) {
         super(ID.Ant);
         this.x = x;
         this.y = y;

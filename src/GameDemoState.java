@@ -8,17 +8,22 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameDemoState implements GameState {
 
     private int width, height;
+    private Handler handler;
+    private GameContainer gc;
 
-    public GameDemoState(int width, int height)
+    public GameDemoState(int width, int height, GameContainer gc)
     {
         this.width = width;
         this.height = height;
+        this.gc = gc;
+        handler = new Handler(width, height, gc);
+
     }
 
     @Override
-    public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
-        // TODO Auto-generated method stub
-
+    public void mouseClicked(int button, int x, int y, int clickCount) {
+        // TODO implement actual controls. Clicks are used for demo purposes only.
+        handler.demoClick(x,y);
     }
 
     @Override
@@ -172,15 +177,15 @@ public class GameDemoState implements GameState {
     }
 
     @Override
-    public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         // TODO Auto-generated method stub
-
+        handler.render(gc, sbg, g);
     }
 
     @Override
-    public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+    public void update(GameContainer gc, StateBasedGame sbg, int d) throws SlickException {
         // TODO Auto-generated method stub
-
+        handler.tick(gc, sbg);
     }
 
 }

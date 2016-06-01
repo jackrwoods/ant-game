@@ -7,9 +7,9 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class DemoAnt extends Ant {
 
-    public DemoAnt(int width, int height, int x, int y, double speed, double dir, int type, Pathfinder path) {
-        super(width, height, x, y, speed, dir, type, path);
-        ant = new Rectangle(100,100, 30, 10);
+    public DemoAnt(int width, int height, int x, int y, double speed, double dir, Pathfinder path) {
+        super(width, height, x, y, speed, dir, path);
+        ant = new Rectangle(x, y, 30, 10);
     }
 
     @Override

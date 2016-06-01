@@ -23,7 +23,7 @@ public class Map {
 		this.height = (int) height;
 		this.fileName = fileName; //stored in the ./maps directory
 		try {
-			mapInput = new FileInputStream("./maps/" + fileName);
+			mapInput = new FileInputStream("./maps/" + fileName+".txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
