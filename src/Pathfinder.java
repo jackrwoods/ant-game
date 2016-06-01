@@ -23,7 +23,7 @@ public class Pathfinder {
 		closedList = new ArrayList<Point>(); //the "closed list" for the A* algorithm
 	}
 	
-	public ArrayList<Point> findPath(float startX, float startY, float endX, float endY, int movementScore) {
+	public ArrayList<Point> findPath(float startX, float startY, float endX, float endY, int movementScore) { //where x and y are the tileType locations of the current tile
 		
 		start = new Point(startX,startY); //the starting position
 		target = new Point(endX,endY); //the target position

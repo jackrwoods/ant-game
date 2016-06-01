@@ -5,5 +5,5 @@ public enum ID
 	//Player();
 	//Enemy();
 	
-	MenuObject(), Tile();
+	MenuObject(), Tile(), Ant;
 }
