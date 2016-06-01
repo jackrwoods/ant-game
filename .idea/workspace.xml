@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9fdbc2a-c27f-4b89-a433-9a2f285b2d65" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ant.java" afterPath="$PROJECT_DIR$/src/Ant.java" />
     </list>
     <ignored path="Ant Game.iws" />
@@ -83,8 +82,8 @@
       <file leaf-file-name="Ant.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ant.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-66">
-              <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="112" selection-end-column="8" />
+            <state relative-caret-position="2394">
+              <caret line="142" column="26" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4748#4749#0" expanded="true" />
@@ -624,12 +623,12 @@
       <workItem from="1464712313143" duration="921000" />
       <workItem from="1464714008266" duration="8290000" />
       <workItem from="1464738077230" duration="4590000" />
-      <workItem from="1464793750386" duration="1199000" />
+      <workItem from="1464793750386" duration="1293000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15000000" />
+    <option name="totallyTimeSpent" value="15094000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -886,8 +885,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Ant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-66">
-          <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="112" selection-end-column="8" />
+        <state relative-caret-position="2394">
+          <caret line="142" column="26" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4748#4749#0" expanded="true" />

@@ -156,5 +156,4 @@ public abstract class Ant extends GameObject {
     }
 
     public abstract void levelUp();
-    public abstract void
 }
