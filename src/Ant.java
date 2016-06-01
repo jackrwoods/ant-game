@@ -16,7 +16,7 @@ public abstract class Ant extends GameObject {
     protected int x, y, type, width, height, tarX, tarY, relX, relY, wayPointX, wayPointY; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
     protected double xVel, yVel, dir, hp, speed; //dir is a direction in degrees
     protected Shape ant;
-    protected boolean moving;
+    protected boolean moving, alive;
     protected Pathfinder path;
     protected ArrayList<Point> currentPath;
 
@@ -33,6 +33,8 @@ public abstract class Ant extends GameObject {
         moving = false;
         this.path = path;
         currentPath = new ArrayList<Point>();
+        hp = 100.0;
+        alive = true;
     }
 
     public void setXVel(double xVel)
@@ -50,6 +52,15 @@ public abstract class Ant extends GameObject {
     }
 
     public void tick(GameContainer gc, StateBasedGame sbg) {
+        //set velocities
+        if (moving) {
+            xVel += Math.sin(dir)*speed;
+            yVel += Math.cos(dir)*speed;
+        } else {
+            xVel = 0;
+            yVel = 0;
+        }
+
         //check to make sure the ant doesn't pass the target
         //round the velocities to make them integers
         if (tarX - x < xVel) {
@@ -72,7 +83,6 @@ public abstract class Ant extends GameObject {
         ant.setX((float)x);
         ant.setY((float)y);
 
-        //TODO: determine xVel and yVel of ant
         //calculate the direction of the ant
         if (moving) {
             if (tarX == x && tarY == y) {
@@ -98,7 +108,8 @@ public abstract class Ant extends GameObject {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left of the player's view
         //perform the transformation and draw the ant
         Transform t = Transform.createRotateTransform((float) dir, ant.getCenterX(), ant.getCenterY());
-        ant = ant.transform(t); //rotate the ship
+        ant = ant.transform(t); //rotate the ant
+        g.draw(ant);
         g.setColor(Color.white); //white is the default color
     }
 
@@ -125,4 +136,25 @@ public abstract class Ant extends GameObject {
         xVel = 0;
         yVel = 0;
     }
+
+    public void damage(double amt) {
+        hp = hp - amt;
+        if (hp <= 0) {
+            alive = false;
+        }
+    }
+
+    public void heal(double amt) {
+        hp = hp + amt;
+        if (hp > 100) {
+            hp = 100.0;
+        }
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public abstract void levelUp();
+    public abstract void
 }
