@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Created by jack on 5/31/16.
  *
  * Ant Class is an Abstract Class for all Ants
+ *
  */
 public abstract class Ant extends GameObject {
 

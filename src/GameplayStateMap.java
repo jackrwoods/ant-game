@@ -7,6 +7,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameplayStateMap implements GameState {
 
+	private int width, height;
+
+	public GameplayStateMap(int width, int height)
+	{
+		this.width = width;
+		this.height = height;
+	}
+
 	@Override
 	public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
 		// TODO Auto-generated method stub

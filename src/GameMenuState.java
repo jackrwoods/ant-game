@@ -7,7 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameMenuState implements GameState {
 	
-	int width, height;
+	private int width, height;
 
 	public GameMenuState(int width, int height)
 	{

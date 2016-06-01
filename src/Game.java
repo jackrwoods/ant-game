@@ -61,7 +61,7 @@ public class Game extends StateBasedGame{
 
 	public static void main(String[] args) throws SlickException {
 		//sets platform-dependent native libraries for LWJGL and OpenGL (Slick2D uses these as well)
-		File JGLLib = new File("./lib/native/windows/");;
+		File JGLLib = new File("./lib/native/windows/");
 		switch(LWJGLUtil.getPlatform())
 		{
 		    case LWJGLUtil.PLATFORM_WINDOWS:
@@ -97,10 +97,10 @@ public class Game extends StateBasedGame{
 		handler = new Handler(width, height, getContainer());
 		
 		// Add the various game states, in order          ID
-		this.addState(new GameMenuState(width, height)); //0
-		this.addState(new GameplayStateAntHill(width, height)); //1
-		this.addState(new GameplayStateMap(width, height)); //1
-		this.addState(new GameOverState(width, height)); //2
+		this.addState(new GameMenuState(width, height)); //0 - choose gamemode, join/create LAN games, etc
+		this.addState(new GameplayStateAntHill(width, height)); //1 - In-Game state where the player views a cross-section of the ant hill
+		this.addState(new GameplayStateMap(width, height)); //2 - In-Game state where the player can see the game's map from a top-down perspective
+		this.addState(new GameOverState(width, height)); //2  - Post-game state where the player is presented with statistice recorded during the game + victory/defeat screen
 		
 	}
 
