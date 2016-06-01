@@ -29,7 +29,7 @@ public abstract class Ant extends GameObject {
         xVel  = 0;
         yVel = 0;
         tarX = -1;
-        tarY = -1
+        tarY = -1;
         moving = false;
         this.path = path;
         currentPath = new ArrayList<Point>();
@@ -121,7 +121,7 @@ public abstract class Ant extends GameObject {
     }
 
     public void stop() {
-        movement = false;
+        moving = false;
         xVel = 0;
         yVel = 0;
     }
