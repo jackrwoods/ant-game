@@ -56,7 +56,7 @@ public class Pathfinder {
 					lowestScoreTileY = (int) startY;
 				}
 			}
-			path.add(new Point((float) lowestScoreTileX, (float) lowestScoreTileY)); //TODO: how to concatenate arrayLists???? POSSIBLY ADDALL
+			path.add(new Point((float) lowestScoreTileX, (float) lowestScoreTileY));
 			path.addAll(findPath((float) lowestScoreTileX, (float) lowestScoreTileY, endX, endY, movementScore++));
 			return path;
 		}

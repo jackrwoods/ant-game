@@ -51,7 +51,7 @@ public class Map {
 		try {
 			OutputStream mapOutput = new FileOutputStream("./maps/" + fileName);
 			for (int x = 0; x < tileType.length; x++) {
-				for (int y = 0; y < tileType[].length; y++) {
+				for (int y = 0; y < tileType[0].length; y++) {
 					mapOutput.write(tileType[y][x]);
 				}
 			}
@@ -66,9 +66,9 @@ public class Map {
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the otop left corner of the player's view
         ArrayList<Tile> renderList = new ArrayList<Tile>();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                renderList.add(new Tile(x, y, tileType[y][x]));
+        for (int forX = 0; x < width; x++) {
+            for (int forY = 0; y < height; y++) {
+                renderList.add(new Tile(x, y, tileType[forY][forX])); //may be an error here, something got messed up
             }
         }
         for (int i = 0; i < renderList.size(); i++) {
