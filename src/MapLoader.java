@@ -25,9 +25,8 @@ public class MapLoader {
             e.printStackTrace();
         }
         file = new ArrayList<String>();
+        loadValues();
     }
-
-
 
     private void loadValues() {
         //load values into an array
@@ -60,5 +59,17 @@ public class MapLoader {
             tileType[y][x] = type;
         }
         System.out.println("Map "+mapName+" loaded successfully from "+fileLoc+" with x:"+width+" y:"+height+" and "+(int) (file.size() - 2)+" entries.");
+    }
+
+    public String getName() {
+        return mapName;
+    }
+
+    public int[] getSize() {
+        return new int{width,height};
+    }
+
+    public int[][] getArray() {
+        return tileType;
     }
 }

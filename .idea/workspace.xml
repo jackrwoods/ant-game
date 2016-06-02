@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9fdbc2a-c27f-4b89-a433-9a2f285b2d65" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MapLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Ant Game/GameMenuState.class" afterPath="$PROJECT_DIR$/out/production/Ant Game/GameMenuState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Ant Game/ID.class" afterPath="$PROJECT_DIR$/out/production/Ant Game/ID.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Ant Game/Map.class" afterPath="$PROJECT_DIR$/out/production/Ant Game/Map.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameDemoState.java" afterPath="$PROJECT_DIR$/src/GameDemoState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Handler.java" afterPath="$PROJECT_DIR$/src/Handler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Map.java" afterPath="$PROJECT_DIR$/src/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Pathfinder.java" afterPath="$PROJECT_DIR$/src/Pathfinder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Tile.java" afterPath="$PROJECT_DIR$/src/Tile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MapLoader.java" afterPath="$PROJECT_DIR$/src/MapLoader.java" />
     </list>
     <ignored path="Ant Game.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,10 +38,14 @@
       <file leaf-file-name="MapLoader.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MapLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="50" column="81" selection-start-line="50" selection-start-column="81" selection-end-line="50" selection-end-column="81" />
+            <state relative-caret-position="827">
+              <caret line="72" column="24" selection-start-line="72" selection-start-column="24" selection-end-line="72" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2472#2473#0" expanded="true" />
+                <element signature="e#2502#2503#0" expanded="true" />
+                <element signature="e#2609#2610#0" expanded="true" />
+                <element signature="e#2640#2641#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -631,12 +625,12 @@
       <workItem from="1464840606854" duration="27000" />
       <workItem from="1464851052922" duration="345000" />
       <workItem from="1464878631136" duration="192000" />
-      <workItem from="1464878848547" duration="2044000" />
+      <workItem from="1464878848547" duration="2312000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30651000" />
+    <option name="totallyTimeSpent" value="30919000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -1088,10 +1082,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MapLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="50" column="81" selection-start-line="50" selection-start-column="81" selection-end-line="50" selection-end-column="81" />
+        <state relative-caret-position="827">
+          <caret line="72" column="24" selection-start-line="72" selection-start-column="24" selection-end-line="72" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2472#2473#0" expanded="true" />
+            <element signature="e#2502#2503#0" expanded="true" />
+            <element signature="e#2609#2610#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
           </folding>
         </state>
       </provider>
