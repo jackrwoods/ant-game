@@ -33,30 +33,38 @@ public class MapLoader {
         //Line 1: Map Name -
         //Line 2: Map Size – x,y
         //Line 3+: List of anything that isn't dirt (type,x/y)
-        boolean read = true;
         try {
-            while (read) {
+            boolean isEmpty = false;
+            while (!isEmpty) {
                 try {
                     String line = bufReader.readLine();
-                    file.add(line);
-                } catch (NullPointerException e) {
-                    read = false;
-                    bufReader.close();
+                    if (line != null) {
+                        file.add(line);
+                    } else {
+                        isEmpty = true;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+            bufReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Integer converter = new Integer(0); //used to convert strings to integers
         mapName = file.get(0);
-        width = converter.getInteger(file.get(1).substring(0,file.get(1).indexOf(','))); //get first number and convert it to an integer
-        height = converter.getInteger(file.get(1).substring(file.get(1).indexOf(',') + 1)); //get second number and convert it to an integer
+        width = Integer.parseInt(file.get(1).substring(0,file.get(1).indexOf(','))); //get first number and convert it to an integer
+        height = Integer.parseInt(file.get(1).substring(file.get(1).indexOf(',') + 1)); //get second number and convert it to an integer
         tileType = new int[height][width];
         for (int i = 2; i < file.size(); i++) {
-            int type = converter.getInteger(file.get(1).substring(0,file.get(1).indexOf(',')));
-            int x = converter.getInteger(file.get(1).substring(file.get(1).indexOf(',') + 1, file.get(1).indexOf('/')));
-            int y = converter.getInteger(file.get(1).substring(file.get(1).indexOf('/') + 1));
-            tileType[y][x] = type;
+            try {
+                int type = Integer.parseInt(file.get(i).substring(0, file.get(i).indexOf(",")));
+                int x = Integer.parseInt(file.get(i).substring(file.get(i).indexOf(",") + 1, file.get(i).indexOf("/")));
+                int y = Integer.parseInt(file.get(i).substring(file.get(i).indexOf("/") + 1));
+                tileType[y][x] = type;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+                System.out.println("Error: Tile located outside of map boundaries. Note: Map coordinates range from 0 to size - 1.");
+            }
         }
         System.out.println("Map "+mapName+" loaded successfully from "+fileLoc+" with x:"+width+" y:"+height+" and "+(int) (file.size() - 2)+" entries.");
     }
@@ -66,7 +74,7 @@ public class MapLoader {
     }
 
     public int[] getSize() {
-        return new int{width,height};
+        return new int[] {width,height};
     }
 
     public int[][] getArray() {

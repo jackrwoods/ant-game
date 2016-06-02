@@ -29,13 +29,13 @@ public class Tile extends GameObject {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left of the player's view
         switch(type)
         {
-            case 32:
+            case 0:
             {
                 g.setColor(Color.darkGray); //TODO: change color to brown using RGB and choose other types/colors for different tiles
                 System.out.println("gray");
             }
             break;
-            case 64:
+            case 1:
             {
                 g.setColor(Color.cyan); //implemented for demo
                 System.out.println("cyan");

@@ -80,6 +80,7 @@ public class GameDemoState implements GameState {
     @Override
     public void keyPressed(int arg0, char arg1) {
         // TODO Auto-generated method stub
+        System.exit(0);
 
     }
 

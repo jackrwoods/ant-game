@@ -12,15 +12,15 @@ public class Map {
 	private int width, height; //map width and height, not screen res
 	private int[][] tileType; //stores an integer which represents the tile's type. Anything greater than 0 is a hazard
 	private String fileName;
-	private InputStreamReader reader;
 	private OutputStreamWriter writer;
-	private BufferedReader bufReader;
 	private BufferedWriter bufWriter;
+	MapLoader load;
 
 	public Map(float width, float height, String fileName) { //resolution for rendering, the file name
 		this.width = (int) width;
 		this.height = (int) height;
 		this.fileName = fileName; //stored in the ./maps directory
+		load = new MapLoader(fileName);
 	}
 
 	private void saveValues() {
@@ -42,9 +42,11 @@ public class Map {
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the otop left corner of the player's view
         ArrayList<Tile> renderList = new ArrayList<Tile>();
-        for (int forX = 0; x < width; x++) {
-            for (int forY = 0; y < height; y++) {
-                renderList.add(new Tile(x, y, tileType[forY][forX])); //may be an error here, something got messed up
+		int[] mapSize = load.getSize();
+		int mapH = mapSize[1], mapW = mapSize[0];
+        for (int forX = 0; x < mapW; x++) {
+            for (int forY = 0; y < mapH; y++) {
+                renderList.add(new Tile(forX, forY, tileType[forY][forX])); //may be an error here, something got messed up
             }
         }
         for (int i = 0; i < renderList.size(); i++) {
