@@ -2,11 +2,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 
 import java.util.ArrayList;
 
@@ -16,35 +12,15 @@ public class Map {
 	private int width, height; //map width and height, not screen res
 	private int[][] tileType; //stores an integer which represents the tile's type. Anything greater than 0 is a hazard
 	private String fileName;
-	private InputStream mapInput;
+	private InputStreamReader reader;
+	private OutputStreamWriter writer;
+	private BufferedReader bufReader;
+	private BufferedWriter bufWriter;
 
 	public Map(float width, float height, String fileName) { //resolution for rendering, the file name
 		this.width = (int) width;
 		this.height = (int) height;
 		this.fileName = fileName; //stored in the ./maps directory
-		try {
-			mapInput = new FileInputStream("./maps/" + fileName+".txt");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		loadValues();
-	}
-
-	private void loadValues() {
-		//load values into an array
-		try {
-			int rowWidthSize = (int) Math.sqrt(mapInput.available());
-			width = rowWidthSize;
-			height = rowWidthSize;
-			for (int x = 0; x < rowWidthSize; x++) {
-				for (int y = 0; y < rowWidthSize; y++) {
-					tileType[y][x] = mapInput.read();
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//create tile objects and load into arrayList
 	}
 
 	private void saveValues() {
@@ -52,7 +28,7 @@ public class Map {
 			OutputStream mapOutput = new FileOutputStream("./maps/" + fileName);
 			for (int x = 0; x < tileType.length; x++) {
 				for (int y = 0; y < tileType[0].length; y++) {
-					mapOutput.write(tileType[y][x]);
+					bufWriter.write(tileType[y][x]);
 				}
 			}
 		} catch (IOException e) {

@@ -38,7 +38,7 @@ public class Handler {
     }
 
     public void demoClick(int x, int y) {
-        
+
     }
 
     //TODO: implement later (for panning player's view);

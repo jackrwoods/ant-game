@@ -37,7 +37,7 @@ public class Pathfinder {
 				for (int y = -1; y < 2; y++) {
 					posX = (int) (startX + x);
 					posY = (int) (startY + y);				
-					if (!(map.getValue(posX, posY) > 100) && posX != startX && posY != startY) { //if it is not an obstacle and isn't the starting position, add it to the list
+					if (!(map.getValue(posX, posY) > 63) && posX != startX && posY != startY) { //TODO CHANGE //if it is not an obstacle and isn't the starting position, add it to the list
 						openList.add(new Point((float) posX, (float) posY));
 					} else {
 						closedList.add(new Point((float) posX, (float) posY));

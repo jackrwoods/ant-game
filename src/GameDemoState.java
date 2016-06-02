@@ -24,30 +24,27 @@ public class GameDemoState implements GameState {
     public void mouseClicked(int button, int x, int y, int clickCount) {
         // TODO implement actual controls. Clicks are used for demo purposes only.
         handler.demoClick(x,y);
+        System.exit(0);
     }
 
     @Override
     public void mouseDragged(int arg0, int arg1, int arg2, int arg3) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseMoved(int arg0, int arg1, int arg2, int arg3) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mousePressed(int arg0, int arg1, int arg2) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseReleased(int arg0, int arg1, int arg2) {
         // TODO Auto-generated method stub
-
     }
 
     @Override

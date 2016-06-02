@@ -7,7 +7,7 @@
       <root url="file://$PROJECT_DIR$/lib/javadoc" />
     </JAVADOC>
     <NATIVE>
-      <root url="file://$PROJECT_DIR$/lib/native" />
+      <root url="file://$PROJECT_DIR$/lib/native/linux" />
     </NATIVE>
     <SOURCES>
       <root url="file://$PROJECT_DIR$/lib/src" />
