@@ -23,7 +23,8 @@ public class Tile extends GameObject {
         super(ID.Tile);
         this.x = x;
         this.y = y;
-        tile = new Rectangle((float) x, (float) y, 32, 32);
+        this.type = type;
+        tile = new Rectangle((float) x, (float) y, 128, 128); //change to 32X32
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left of the player's view
@@ -32,18 +33,22 @@ public class Tile extends GameObject {
             case 0:
             {
                 g.setColor(Color.darkGray); //TODO: change color to brown using RGB and choose other types/colors for different tiles
-                System.out.println("gray");
             }
             break;
             case 1:
             {
                 g.setColor(Color.cyan); //implemented for demo
-                System.out.println("cyan");
             }
             break;
         }
+        /*if (type == 0) {
+            g.setColor(Color.darkGray);
+        } else {
+            g.setColor(Color.cyan);
+        } */
         tile.setLocation((float) this.x - x, (float) this.y - y);
         g.draw(tile);
+        g.fill(tile);
     }
 
     public void tick(GameContainer gc, StateBasedGame sbg) {

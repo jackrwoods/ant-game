@@ -1,5 +1,7 @@
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
@@ -25,6 +27,12 @@ public class Handler {
 	}
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
+        //Render objects on top of background
+        Rectangle background = new Rectangle(0,0,width,height);
+        g.setColor(Color.darkGray);
+        g.draw(background);
+        g.fill(background);
+
         for (int i = 0; i < objects.size(); i ++) {
             objects.get(i).render(gc, sbg, g, x, y);
         }
