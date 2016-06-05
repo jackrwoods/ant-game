@@ -12,6 +12,7 @@ public class Handler {
     private ArrayList<GameObject> objects;
 	private Pathfinder path;
     private Map map;
+    private Ant ant;
 	
 	public Handler(int width, int height, GameContainer gc) {
 		this.width = width;
@@ -22,8 +23,7 @@ public class Handler {
         objects = new ArrayList<GameObject>();
         map = new Map(width, height, "demo");
         path = new Pathfinder(map);
-        Ant ant = new DemoAnt(width, height, 100, 100, 2.0, 0.0, path);
-        objects.add(ant);
+        ant = new DemoAnt(width, height, 1000, 500, 2.0, 0.0, path);
 	}
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
@@ -37,16 +37,18 @@ public class Handler {
             objects.get(i).render(gc, sbg, g, x, y);
         }
         map.render(gc, sbg, g, x, y);
+        ant.render(gc, sbg, g, x, y);
     }
 
     public void tick(GameContainer gc, StateBasedGame sbg) {
         for (int i = 0; i < objects.size(); i ++) {
             objects.get(i).tick(gc, sbg);
         }
+        ant.tick(gc, sbg);
     }
 
     public void demoClick(int x, int y) {
-
+        ant.move(x,y);
     }
 
     //TODO: implement later (for panning player's view);

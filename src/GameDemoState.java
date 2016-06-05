@@ -1,3 +1,4 @@
+import org.lwjgl.Sys;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -10,6 +11,7 @@ public class GameDemoState implements GameState {
     private int width, height;
     private Handler handler;
     private GameContainer gc;
+    private Input userInput;
 
     public GameDemoState(int width, int height, GameContainer gc)
     {
@@ -17,14 +19,13 @@ public class GameDemoState implements GameState {
         this.height = height;
         this.gc = gc;
         handler = new Handler(width, height, gc);
+        userInput = gc.getInput();
 
     }
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         // TODO implement actual controls. Clicks are used for demo purposes only.
-        handler.demoClick(x,y);
-        System.exit(0);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class GameDemoState implements GameState {
     }
 
     @Override
-    public void mousePressed(int arg0, int arg1, int arg2) {
+    public void mousePressed(int button, int x, int y) {
         // TODO Auto-generated method stub
     }
 
@@ -80,7 +81,6 @@ public class GameDemoState implements GameState {
     @Override
     public void keyPressed(int arg0, char arg1) {
         // TODO Auto-generated method stub
-        System.exit(0);
 
     }
 
@@ -184,6 +184,10 @@ public class GameDemoState implements GameState {
     public void update(GameContainer gc, StateBasedGame sbg, int d) throws SlickException {
         // TODO Auto-generated method stub
         handler.tick(gc, sbg);
+        if (userInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            handler.demoClick(userInput.getMouseX(),userInput.getMouseY());
+            System.out.println("Click! "+userInput.getMouseX()+","+userInput.getMouseY());
+        }
     }
 
 }

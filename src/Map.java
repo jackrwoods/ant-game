@@ -1,13 +1,15 @@
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.pathfinding.TileBasedMap;
+import org.newdawn.slick.util.pathfinding.PathFindingContext;
 
 import java.io.*;
 
 import java.util.ArrayList;
 
 //This stores all of the map data (ie: what tile should be rendered where)
-public class Map {
+public class Map implements TileBasedMap{
 
 	private int width, height; //map width and height, not screen res
 	private int[][] tileType; //stores an integer which represents the tile's type. Anything greater than 0 is a hazard
@@ -26,19 +28,6 @@ public class Map {
         createRenderList(); //call this method when the player pans view
 	}
 
-	private void saveValues() {
-		try {
-			OutputStream mapOutput = new FileOutputStream("./maps/" + fileName);
-			for (int x = 0; x < tileType.length; x++) {
-				for (int y = 0; y < tileType[0].length; y++) {
-					bufWriter.write(tileType[y][x]);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
     private void createRenderList() {
         renderList = new ArrayList<Tile>();
         int[] mapSize = load.getSize();
@@ -47,8 +36,7 @@ public class Map {
             for (int forY = 0; forY < mapH; forY++) {
                 if (tileType[forY][forX] != 0)
                 {
-                    renderList.add(new Tile(forX * 128, forY * 128, tileType[forY][forX])); //may be an error here, something got messed up
-                    System.out.println("Tile at: "+forX+","+forY+" of type "+tileType[forY][forX]);
+                    renderList.add(new Tile(forX * 32, forY * 32, tileType[forY][forX]));
                 }
             }
         }
@@ -62,5 +50,32 @@ public class Map {
         for (int i = 0; i < renderList.size(); i++) {
             renderList.get(i).render(gc, sbg, g, x, y);
         }
+    }
+
+    @Override
+    public boolean blocked(PathFindingContext ctx, int x, int y) {
+        return tileType[y][x] >= 1; //change to 100
+    }
+
+    @Override
+    public float getCost(PathFindingContext ctx, int x, int y) {
+        return 1.0f;
+    }
+
+    @Override
+    public int getHeightInTiles() {
+        return height;
+    }
+
+    @Override
+    public int getWidthInTiles() {
+        return width;
+    }
+
+    @Override
+    public void pathFinderVisited(int x, int y) {}
+
+    public void pathTile(int x, int y) {
+        renderList.add(new Tile(x,y,2));
     }
 }

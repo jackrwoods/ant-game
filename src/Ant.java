@@ -53,83 +53,73 @@ public abstract class Ant extends GameObject {
     }
 
     public void tick(GameContainer gc, StateBasedGame sbg) {
-        //set velocities
-        if (moving) {
-            xVel += Math.sin(dir)*speed;
-            yVel += Math.cos(dir)*speed;
-        } else {
-            xVel = 0;
-            yVel = 0;
-        }
-
-        //check to make sure the ant doesn't pass the target
-        //round the velocities to make them integers
-        if (tarX - x < xVel) {
-            xVel = tarX - x;
-        } else {
-            this.x += Math.round(xVel);
-        }
-        if (tarY - x < yVel) {
-            yVel = tarY - y;
-        } else {
-
-            this.y += -1 * Math.round(yVel);
-        }
-
-        //adjust the coordinates to correctly locate the ant in the player's view
-        relX = this.x - x;
-        relY = this.y - y;
-
-        //set the coordinates
-        ant.setX((float)x);
-        ant.setY((float)y);
 
         //calculate the direction of the ant
+        if (wayPointX == x && wayPointY == y) {
+            updateWayPointCoord();
+        }
+        Vector2f direction = new Vector2f((float) this.x, (float) this.y);
+        float xDis = wayPointX - direction.x;
+        float yDis = wayPointY - direction.y;
+        dir = Math.atan2(yDis,  xDis) + Math.PI/2; //the direction in radians
+
+        //set velocities
+        xVel = Math.sin(dir)*speed;
+        yVel = -1 * Math.cos(dir)*speed;
         if (moving) {
-            if (tarX == x && tarY == y) {
-                moving = false;
-                dir = 0;
-            } else if (wayPointX == x && wayPointY == y){
-                updateWayPointCoord();
-                Vector2f direction = new Vector2f((float) this.x, (float) this.y);
-                float xDis = tarX - direction.x;
-                float yDis = tarY - direction.y;
-                dir = Math.atan2(yDis,  xDis) + Math.PI/2; //the direction in degrees
+            //if the ant is going to miss its target
+            //if ((x < wayPointX && y < wayPointY && x + xVel > wayPointX && y + yVel > wayPointY) || (x > wayPointX && y < wayPointY && x + xVel < wayPointX && y + yVel > wayPointY) || (x < wayPointX && y > wayPointY && x + xVel > wayPointX && y + yVel < wayPointY) || (x > wayPointX && y > wayPointY && x + xVel < wayPointX && y + yVel < wayPointY) || (x > wayPointX && y == wayPointY && x + xVel < wayPointX && y + yVel == wayPointY) || (x < wayPointX && y == wayPointY && x + xVel > wayPointX && y + yVel == wayPointY) || (x == wayPointX && y > wayPointY && x + xVel == wayPointX && y + yVel < wayPointY) || (x == wayPointX && y < wayPointY && x + xVel == wayPointX && y + yVel > wayPointY)) {
+              if (Math.abs(x-wayPointX) <= 2 && Math.abs(y - wayPointY) <= 2) {
+                x = wayPointX;
+                y = wayPointY;
             } else {
-                Vector2f direction = new Vector2f((float) this.x, (float) this.y);
-                float xDis = tarX - direction.x;
-                float yDis = tarY - direction.y;
-                dir = Math.atan2(yDis,  xDis) + Math.PI/2; //the direction in degrees
+                xVel = Math.round(xVel);
+                yVel = Math.round(yVel);
+                x += xVel;
+                y += yVel;
             }
-        } else {
-            dir = 0; //the ant faces straight upward if it isn't moving
         }
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left of the player's view
         //perform the transformation and draw the ant
-        Transform t = Transform.createRotateTransform((float) dir, ant.getCenterX(), ant.getCenterY());
+        ant = new Rectangle(this.x, this.y, 30, 10);
+        Transform t = Transform.createRotateTransform((float) (dir - Math.PI/2), ant.getCenterX(), ant.getCenterY());
         ant = ant.transform(t); //rotate the ant
+        g.setColor(Color.white);
+        ant.setLocation((float) x, (float) y);
         g.draw(ant);
+        g.fill(ant);
         g.setColor(Color.white); //white is the default color
     }
 
     //gives the ant a new target, and begins movement
     public void move (int tarX, int tarY) {
-        float tileX = Math.round(x / 32);
-        float tileY = Math.round(y / 32);
-        float endTileX = Math.round(tarX/32);
-        float endTileY = Math.round(tarY/32);
-        currentPath = path.findPath((float) tileX, (float) tileY, endTileX, endTileY, 1); //1 is the movementScore
+        float tileX = x / 32;
+        float tileY = y / 32;
+        float endTileX = tarX/32;
+        float endTileY = tarY/32;
+        this.tarX = tarX;
+        this.tarY = tarY;
+        currentPath = path.findPath(tileX, tileY, endTileX, endTileY);
         moving = true;
-        wayPointX = (int) currentPath.get(0).getX();
-        wayPointY = (int) currentPath.get(0).getY();
+        wayPointX = (int) currentPath.get(1).getX() + 32/2;
+        wayPointY = (int) currentPath.get(1).getY() + 32/2;
+        for (int i = 1; i < currentPath.size(); i++) {
+            path.getMap().pathTile((int) currentPath.get(i).getX(), (int) currentPath.get(i).getY());
+        }
     }
 
     private void updateWayPointCoord() {
-        currentPath.remove(0);
-        wayPointX = (int) currentPath.get(0).getX();
-        wayPointY = (int) currentPath.get(0).getY();
+        if (currentPath.size() > 1) {
+            currentPath.remove(0);
+            wayPointX = (int) currentPath.get(0).getX() + 32/2;
+            wayPointY = (int) currentPath.get(0).getY() + 32/2;
+        } else {
+            if(!moving) {
+                stop();
+            }
+        }
     }
 
     public void stop() {

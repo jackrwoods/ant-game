@@ -24,7 +24,7 @@ public class Tile extends GameObject {
         this.x = x;
         this.y = y;
         this.type = type;
-        tile = new Rectangle((float) x, (float) y, 128, 128); //change to 32X32
+        tile = new Rectangle((float) x, (float) y, 32, 32);
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left of the player's view
@@ -40,6 +40,11 @@ public class Tile extends GameObject {
                 g.setColor(Color.cyan); //implemented for demo
             }
             break;
+            case 2:
+            {
+                g.setColor(Color.red); //implemented for demo
+            }
+            break;
         }
         /*if (type == 0) {
             g.setColor(Color.darkGray);
@@ -53,6 +58,16 @@ public class Tile extends GameObject {
 
     public void tick(GameContainer gc, StateBasedGame sbg) {
         //nothing to tick
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
     }
 
     public Shape getShape() {
