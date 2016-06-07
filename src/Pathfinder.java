@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import org.newdawn.slick.geom.Point;
+import org.newdawn.slick.util.pathfinding.AStarHeuristic;
 import org.newdawn.slick.util.pathfinding.AStarPathFinder;
 import org.newdawn.slick.util.pathfinding.Path;
 
@@ -10,10 +11,12 @@ public class Pathfinder {
     private AStarPathFinder pathFinder;
 	private ArrayList<Point> path;
     private Map map;
+    private AStarHeuristic heuristic;
 	
 	public Pathfinder(Map map)
 	{
-        pathFinder = new AStarPathFinder(map, 1000000, true);
+        heuristic = new CustomHeuristic();
+        pathFinder = new AStarPathFinder(map, 1000000, false, heuristic);
 		this.map = map;
 		path = new ArrayList<Point>(); //the final path
 	}

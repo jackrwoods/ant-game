@@ -13,6 +13,7 @@ public class Handler {
 	private Pathfinder path;
     private Map map;
     private Ant ant;
+    private MapController mapController;
 	
 	public Handler(int width, int height, GameContainer gc) {
 		this.width = width;
@@ -20,6 +21,7 @@ public class Handler {
         x = 0;
         y = 0;
 		this.gc = gc;
+        mapController = new MapController(gc);
         objects = new ArrayList<GameObject>();
         map = new Map(width, height, "demo");
         path = new Pathfinder(map);
@@ -41,6 +43,9 @@ public class Handler {
     }
 
     public void tick(GameContainer gc, StateBasedGame sbg) {
+        int[] coords = mapController.tick();
+        x = coords[0];
+        y = coords[1];
         for (int i = 0; i < objects.size(); i ++) {
             objects.get(i).tick(gc, sbg);
         }
@@ -48,7 +53,7 @@ public class Handler {
     }
 
     public void demoClick(int x, int y) {
-        ant.move(x,y);
+        ant.move(this.x + x,this.y + y);
     }
 
     //TODO: implement later (for panning player's view);

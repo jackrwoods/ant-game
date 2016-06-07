@@ -21,7 +21,7 @@ public abstract class Ant extends GameObject {
     protected Pathfinder path;
     protected ArrayList<Point> currentPath;
 
-    public Ant(int width, int height, int x, int y, double speed, double dir, Pathfinder path) {
+    public Ant(int x, int y, double speed, double dir, Pathfinder path) {
         super(ID.Ant);
         this.x = x;
         this.y = y;
@@ -83,11 +83,10 @@ public abstract class Ant extends GameObject {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left of the player's view
         //perform the transformation and draw the ant
-        ant = new Rectangle(this.x, this.y, 30, 10);
+        ant = new Rectangle(this.x - x, this.y - y, 10, 10);
         Transform t = Transform.createRotateTransform((float) (dir - Math.PI/2), ant.getCenterX(), ant.getCenterY());
         ant = ant.transform(t); //rotate the ant
         g.setColor(Color.white);
-        ant.setLocation((float) x, (float) y);
         g.draw(ant);
         g.fill(ant);
         g.setColor(Color.white); //white is the default color
