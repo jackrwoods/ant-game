@@ -11,7 +11,7 @@ import java.util.ArrayList;
 //This stores all of the map data (ie: what tile should be rendered where)
 public class Map implements TileBasedMap{
 
-	private int width, height; //map width and height, not screen res
+	private int width, height; //screen width and height
 	private int[][] tileType; //stores an integer which represents the tile's type. Anything greater than 0 is a hazard
 	private String fileName;
 	private OutputStreamWriter writer;
@@ -19,7 +19,7 @@ public class Map implements TileBasedMap{
 	MapLoader load;
     ArrayList<Tile> renderList;
 
-	public Map(float width, float height, String fileName) { //resolution for rendering, the file name
+	public Map(int width, int height, String fileName) { //resolution for rendering, the file name
 		this.width = (int) width;
 		this.height = (int) height;
 		this.fileName = fileName; //stored in the ./maps directory
@@ -34,12 +34,10 @@ public class Map implements TileBasedMap{
         int[] mapSize = load.getSize();
         int mapH = mapSize[1], mapW = mapSize[0];
 
-        //iterate through all x,y coords of the map
-
+        //iterate through all x,y coordinates of the map
         for (int forX = x / 32; forX < (x + width + 32) / 32; forX++) {
             for (int forY = y / 32; forY < (y + height + 32) / 32; forY++) {
-                if (forX >= 0 && forY >= 0) {
-                    System.out.println((forX + width + 2) + "," + (forY + height + 1));
+                if (forX >= 0 && forY >= 0 && forX <= mapW - 1 && forY <= mapH - 1) {
                     renderList.add(new Tile(forX * 32, forY * 32, tileType[forY][forX]));
                 }
             }

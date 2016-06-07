@@ -185,8 +185,7 @@ public class GameDemoState implements GameState {
         // TODO Auto-generated method stub
         handler.tick(gc, sbg);
         if (userInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            handler.demoClick(userInput.getMouseX(),userInput.getMouseY());
-            System.out.println("Click! "+userInput.getMouseX()+","+userInput.getMouseY());
+            //handler.demoClick(userInput.getMouseX(),userInput.getMouseY());
         }
     }
 

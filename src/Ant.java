@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public abstract class Ant extends GameObject {
 
-    protected int x, y, type, width, height, tarX, tarY, relX, relY, wayPointX, wayPointY; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
+    protected int x, y, type, width, height, tarX, tarY, relX, relY, wayPointX, wayPointY, team; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
     protected double xVel, yVel, dir, hp, speed; //dir is a direction in degrees
     protected Shape ant;
     protected boolean moving, alive;
@@ -146,4 +146,12 @@ public abstract class Ant extends GameObject {
     }
 
     public abstract void levelUp();
+
+    public boolean isOwner (int team) { //returns true if the team number supplied matches this ant's team number
+        if (this.team == team) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
