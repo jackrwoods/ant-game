@@ -11,14 +11,20 @@ public class MapController {
 
     private GameContainer gc;
     private Input userInput;
-    private int x,y;
+    private int x,y,width,height,oldX,oldY;
+    private Map map;
 
-    public MapController (GameContainer gc) {
+    public MapController (int width, int height, GameContainer gc, Map map) {
         this.gc = gc;
         userInput = gc.getInput();
         userInput.enableKeyRepeat();
         x = 0;
         y = 0;
+        oldX = 0;
+        oldY = 0;
+        this.map = map;
+        this.width = width;
+        this.height = height;
     }
 
     //returns the new x,y of the top left of the player's screen.
@@ -35,7 +41,11 @@ public class MapController {
         if(userInput.isKeyDown(Input.KEY_D)) {
             x += 15;
         }
-
+        if (x != oldX || y != oldY) {
+            map.createRenderList(x,y);
+            oldX = x;
+            oldY = y;
+        }
         return new int[] {x,y};
     }
 

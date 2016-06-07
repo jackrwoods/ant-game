@@ -88,6 +88,7 @@ public class Game extends StateBasedGame{
 		AppGameContainer app = new AppGameContainer(new Game("Ants"));
 		app.setDisplayMode(width, height, true);
 		app.setTargetFrameRate(60);
+		//app.setVSync(true);
 		app.start();
 	}
 

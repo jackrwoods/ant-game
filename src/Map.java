@@ -25,17 +25,21 @@ public class Map implements TileBasedMap{
 		this.fileName = fileName; //stored in the ./maps directory
 		load = new MapLoader(fileName);
         tileType = load.getArray();
-        createRenderList(); //call this method when the player pans view
+        createRenderList(0,0);
 	}
 
-    private void createRenderList() {
+    //To save resources, only tiles that are currently on-screen are rendered
+    public void createRenderList(int x, int y) {
         renderList = new ArrayList<Tile>();
         int[] mapSize = load.getSize();
         int mapH = mapSize[1], mapW = mapSize[0];
-        for (int forX = 0; forX < mapW; forX++) {
-            for (int forY = 0; forY < mapH; forY++) {
-                if (tileType[forY][forX] != 0)
-                {
+
+        //iterate through all x,y coords of the map
+
+        for (int forX = x / 32; forX < (x + width + 32) / 32; forX++) {
+            for (int forY = y / 32; forY < (y + height + 32) / 32; forY++) {
+                if (forX >= 0 && forY >= 0) {
+                    System.out.println((forX + width + 2) + "," + (forY + height + 1));
                     renderList.add(new Tile(forX * 32, forY * 32, tileType[forY][forX]));
                 }
             }
@@ -46,7 +50,7 @@ public class Map implements TileBasedMap{
 		return tileType[y][x];
 	}
 
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the otop left corner of the player's view
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) { //x and y are the coordinates of the top left corner of the player's view
         for (int i = 0; i < renderList.size(); i++) {
             renderList.get(i).render(gc, sbg, g, x, y);
         }

@@ -21,19 +21,20 @@ public class Handler {
         x = 0;
         y = 0;
 		this.gc = gc;
-        mapController = new MapController(gc);
-        objects = new ArrayList<GameObject>();
         map = new Map(width, height, "demo");
+        mapController = new MapController(width, height, gc, map);
+        objects = new ArrayList<GameObject>();
         path = new Pathfinder(map);
         ant = new DemoAnt(width, height, 1000, 500, 2.0, 0.0, path);
 	}
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
         //Render objects on top of background
-        Rectangle background = new Rectangle(0,0,width,height);
+        /*Rectangle background = new Rectangle(0,0,width,height);
         g.setColor(Color.darkGray);
         g.draw(background);
         g.fill(background);
+        */
 
         for (int i = 0; i < objects.size(); i ++) {
             objects.get(i).render(gc, sbg, g, x, y);
