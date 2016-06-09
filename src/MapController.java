@@ -13,8 +13,9 @@ public class MapController {
     private Input userInput;
     private int x,y,width,height,oldX,oldY;
     private Map map;
+    private AntController antController;
 
-    public MapController (int width, int height, GameContainer gc, Map map) {
+    public MapController (int width, int height, GameContainer gc, Map map, AntController antController) {
         this.gc = gc;
         userInput = gc.getInput();
         userInput.enableKeyRepeat();
@@ -25,6 +26,7 @@ public class MapController {
         this.map = map;
         this.width = width;
         this.height = height;
+        this.antController = antController;
     }
 
     //returns the new x,y of the top left of the player's screen.
@@ -43,6 +45,7 @@ public class MapController {
         }
         if (x != oldX || y != oldY) {
             map.createRenderList(x,y);
+            antController.createRenderList(x,y);
             oldX = x;
             oldY = y;
         }

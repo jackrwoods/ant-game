@@ -16,7 +16,7 @@ public class Pathfinder {
 	public Pathfinder(Map map)
 	{
         heuristic = new CustomHeuristic();
-        pathFinder = new AStarPathFinder(map, 1000000, false, heuristic);
+        pathFinder = new AStarPathFinder(map, 1000000, true, heuristic);
 		this.map = map;
 		path = new ArrayList<Point>(); //the final path
 	}
@@ -29,7 +29,6 @@ public class Pathfinder {
         reset();
         Path path = pathFinder.findPath(null, (int)startX, (int)startY, (int)endX, (int)endY);
         int length = path.getLength();
-        System.out.println("Found path of length: " + length + ".");
 
         for (int i = 0; i < length; i++) {
             this.path.add(new Point(path.getX(i) * 32, path.getY(i) * 32));

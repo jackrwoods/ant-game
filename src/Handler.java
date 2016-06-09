@@ -23,10 +23,10 @@ public class Handler {
         y = 0;
 		this.gc = gc;
         map = new Map(width, height, "demo");
-        mapController = new MapController(width, height, gc, map);
-        objects = new ArrayList<GameObject>();
         path = new Pathfinder(map);
         antController = new AntController(width, height, gc, path);
+        mapController = new MapController(width, height, gc, map, antController);
+        objects = new ArrayList<GameObject>();
 	}
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) {
