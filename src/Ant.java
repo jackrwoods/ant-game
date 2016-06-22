@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public abstract class Ant extends GameObject {
 
-    protected int x, y, type, width, height, tarX, tarY, wayPointX, wayPointY, team, hp, maxHP; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
+    protected int x, y, type, width, height, tarX, tarY, wayPointX, wayPointY, team, hp, maxHP, pathLoc; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
     protected double xVel, yVel, dir, speed; //dir is a direction in degrees
     protected Shape ant;
     protected boolean moving, alive;
@@ -37,6 +37,7 @@ public abstract class Ant extends GameObject {
         hp = 100;
         maxHP = 100;
         alive = true;
+        pathLoc = 0;
     }
 
     public void setXVel(double xVel)
@@ -113,14 +114,15 @@ public abstract class Ant extends GameObject {
     }
 
     private void updateWayPointCoord() {
-        if (currentPath.size() > 1) {
-            currentPath.remove(0);
-            wayPointX = (int) currentPath.get(0).getX() + 32/2;
-            wayPointY = (int) currentPath.get(0).getY() + 32/2;
+        if (pathLoc < currentPath.size() - 1) {
+            pathLoc++;
+            wayPointX = (int) currentPath.get(pathLoc).getX() + 32/2;
+            wayPointY = (int) currentPath.get(pathLoc).getY() + 32/2;
         } else {
             if(moving) {
                 stop();
             }
+            pathLoc = 0;
         }
     }
 
@@ -128,6 +130,7 @@ public abstract class Ant extends GameObject {
         moving = false;
         xVel = 0;
         yVel = 0;
+        currentPath = new ArrayList<Point>();
     }
 
     public void damage(int amt) {
