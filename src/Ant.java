@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public abstract class Ant extends GameObject {
 
-    protected int x, y, type, width, height, tarX, tarY, relX, relY, wayPointX, wayPointY, team; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
-    protected double xVel, yVel, dir, hp, speed; //dir is a direction in degrees
+    protected int x, y, type, width, height, tarX, tarY, wayPointX, wayPointY, team, hp, maxHP; //x and y are the coordinates of the ant on the map, tarX and tarY are the target XY coordinates
+    protected double xVel, yVel, dir, speed; //dir is a direction in degrees
     protected Shape ant;
     protected boolean moving, alive;
     protected Pathfinder path;
@@ -34,7 +34,8 @@ public abstract class Ant extends GameObject {
         moving = false;
         this.path = path;
         currentPath = new ArrayList<Point>();
-        hp = 100.0;
+        hp = 100;
+        maxHP = 100;
         alive = true;
     }
 
@@ -58,10 +59,12 @@ public abstract class Ant extends GameObject {
         if (wayPointX == x && wayPointY == y) {
             updateWayPointCoord();
         }
-        Vector2f direction = new Vector2f((float) this.x, (float) this.y);
-        float xDis = wayPointX - direction.x;
-        float yDis = wayPointY - direction.y;
-        dir = Math.atan2(yDis,  xDis) + Math.PI/2; //the direction in radians
+        if (moving) {
+            Vector2f direction = new Vector2f((float) this.x, (float) this.y);
+            float xDis = wayPointX - direction.x;
+            float yDis = wayPointY - direction.y;
+            dir = Math.atan2(yDis,  xDis) + Math.PI/2; //the direction in radians
+        }
 
         //set velocities
         xVel = Math.sin(dir)*speed;
@@ -115,7 +118,7 @@ public abstract class Ant extends GameObject {
             wayPointX = (int) currentPath.get(0).getX() + 32/2;
             wayPointY = (int) currentPath.get(0).getY() + 32/2;
         } else {
-            if(!moving) {
+            if(moving) {
                 stop();
             }
         }
@@ -127,17 +130,17 @@ public abstract class Ant extends GameObject {
         yVel = 0;
     }
 
-    public void damage(double amt) {
+    public void damage(int amt) {
         hp = hp - amt;
         if (hp <= 0) {
             alive = false;
         }
     }
 
-    public void heal(double amt) {
+    public void heal(int amt) {
         hp = hp + amt;
-        if (hp > 100) {
-            hp = 100.0;
+        if (hp > maxHP) {
+            hp = 100;
         }
     }
 
@@ -153,5 +156,15 @@ public abstract class Ant extends GameObject {
         } else {
             return false;
         }
+    }
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public int getY()
+    {
+        return y;
     }
 }

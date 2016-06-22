@@ -37,15 +37,20 @@ public class AntController {
         this.height = height;
         this.path = path;
         sRectCoords = new int[4];
+        sRectCoords[0] = -1;
+        sRectCoords[1] = -1;
+        sRectCoords[2] = 1;
+        sRectCoords[3] = 1;
         select = false;
         renderList = new ArrayList<Ant>();
         selectList = new ArrayList<Ant>();
         antList = new ArrayList<Ant>();
+        spawnAnt(1000, 1000, 0);
     }
 
     public void spawnAnt(int x, int y, int type) { //type will be used when more than one ant is implemented
-        antList.add(new DemoAnt(width, height, x, y, 2.0, 0.0, path));
-        renderList.add(antList.get(antList.size() - 1));
+        antList.add(new AntLeader(x, y, 2.0, 0.0, path, 200));
+        //renderList.add(antList.get(antList.size() - 1));
     }
 
     public void tick (GameContainer gc, StateBasedGame sbg, int x, int y) {
@@ -64,7 +69,7 @@ public class AntController {
                 sRectCoords[2] = userInput.getMouseX() - sRectCoords[0];
                 sRectCoords[3] = userInput.getMouseY() - sRectCoords[1];
             }
-        } else  if (select == true){
+        } else  if (select == true) {
             //if the user releases the mouse, select all ants underneath
             sRect = new Rectangle(sRect.getMinX(), sRect.getMinY(), sRect.getMaxX() - sRect.getMinX(), sRect.getMaxY() - sRect.getMinY());
             checkSelect();
@@ -91,6 +96,7 @@ public class AntController {
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) {
+        createRenderList(x, y);
         for (int i = 0; i < renderList.size(); i ++) {
             renderList.get(i).render(gc, sbg, g, x, y);
         }
@@ -117,7 +123,7 @@ public class AntController {
         renderList = new ArrayList<Ant>();
         for (int i = 0; i < antList.size(); i++) {
             Ant temp = antList.get(i);
-            if (temp.getX() >= 0 && temp.getY() >= 0 && temp.getX() <= width && temp.getY() <= height) {
+            if (temp.getX() >= x && temp.getY() >= y && temp.getX() <= width + x && temp.getY() <= height + y) {
                 renderList.add(temp);
             }
         }

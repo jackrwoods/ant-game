@@ -34,6 +34,11 @@
  *These Licenses are distributed as a text document, along with the binary executable.
  */
 
+//TODO: Add Leader Ant Class, and Melee Ant Class. Make Melee Ants follow the leader at all times, but remain in formation. Must be able to render 1000s of ants at once, all relative to the leader ant
+//TODO: NOTES: Soldiers are currently an ant class, but could be rendered as just shapes in the leader class. If there are enough resources, we could keep soldiers as their own class and level them up
+//TODO:        individually. Then, we could claim that we simulate the lives of 1,000s of ants in real time!
+
+//TODO: Implement scalableGame in Main class
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
