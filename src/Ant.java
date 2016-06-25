@@ -79,8 +79,8 @@ public abstract class Ant extends GameObject {
             } else {
                 xVel = Math.round(xVel);
                 yVel = Math.round(yVel);
-                x += xVel;
-                y += yVel;
+                x =(int) Math.round(x + xVel);
+                y =(int) Math.round(y + yVel);
             }
         }
     }
@@ -108,12 +108,9 @@ public abstract class Ant extends GameObject {
         moving = true;
         wayPointX = (int) currentPath.get(1).getX() + 32/2;
         wayPointY = (int) currentPath.get(1).getY() + 32/2;
-        for (int i = 1; i < currentPath.size(); i++) {
-            path.getMap().pathTile((int) currentPath.get(i).getX(), (int) currentPath.get(i).getY());
-        }
     }
 
-    private void updateWayPointCoord() {
+    protected void updateWayPointCoord() {
         if (pathLoc < currentPath.size() - 1) {
             pathLoc++;
             wayPointX = (int) currentPath.get(pathLoc).getX() + 32/2;
@@ -130,7 +127,6 @@ public abstract class Ant extends GameObject {
         moving = false;
         xVel = 0;
         yVel = 0;
-        currentPath = new ArrayList<Point>();
     }
 
     public void damage(int amt) {

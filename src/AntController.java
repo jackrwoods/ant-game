@@ -45,7 +45,7 @@ public class AntController {
         renderList = new ArrayList<Ant>();
         selectList = new ArrayList<Ant>();
         antList = new ArrayList<Ant>();
-        spawnAnt(1000, 1000, 0);
+        spawnAnt(100, 100, 0);
     }
 
     public void spawnAnt(int x, int y, int type) { //type will be used when more than one ant is implemented
