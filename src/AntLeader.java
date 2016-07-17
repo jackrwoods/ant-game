@@ -85,9 +85,9 @@ public class AntLeader extends Ant{
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g, int x, int y) {
         super.render(gc, sbg, g, x, y);
         ant = super.ant;
-        for(int i = 0; i < soldiers.size(); i++) {
+        /*for(int i = 0; i < soldiers.size(); i++) {
             soldiers.get(i).render(gc, sbg, g, x, y);
-        }
+        }*/
         topX = x;
         topY = y;
     }
@@ -99,7 +99,7 @@ public class AntLeader extends Ant{
         centerY = tarY;
         generateLocations();
         for (int i = 0; i < soldiers.size(); i++) {
-            soldiers.get(i).move(currentPath, new Point(locations[i][0], locations[i][1]));
+            soldiers.get(i).move(currentPath, new Point(locations[i][0], locations[i][1]), tarX, tarY);
         }
     }
 
@@ -152,15 +152,14 @@ public class AntLeader extends Ant{
 
     //creates and initializes a soldier ant
     public void createSoldier() {
-        int[] temp = {locations[soldiers.size()][0], locations[soldiers.size()][1], -1, -1, -1, 100, 10, 0, 0, 0};
-        soldiers.add(new AntFollower(locations[soldiers.size()][0], locations[soldiers.size()][1], speed, 0, path));
+        soldiers.add(new AntFollower(locations[soldiers.size()][0], locations[soldiers.size()][1], speed, 0, path, soldiers.size()));
     }
 
     private void generateLocations() {
         locations = new int[200][2];
         int i = 0;
-        int posX = (int) (Math.round(100 * Math.cos(dir + Math.PI)) + centerX + topX);
-        int posY = (int) (Math.round(100 * Math.sin(dir + Math.PI)) + centerY + topY);
+        int posX = (int) (Math.round(100 * Math.cos(dir + Math.PI)) + centerX);
+        int posY = (int) (Math.round(100 * Math.sin(dir + Math.PI)) + centerY);
 
         for (int x = 0; x < 20; x++) {
             for (int y = 0; y < 10; y++) {
@@ -173,5 +172,19 @@ public class AntLeader extends Ant{
                 i++;
             }
         }
+    }
+
+    public ArrayList<Ant> getList(int x, int y, int width, int height) {
+        ArrayList<Ant> temp = new ArrayList<Ant>();
+        for(int i = 0; i < soldiers.size(); i++) {
+            Ant tempAnt = soldiers.get(i);
+            if (tempAnt.getX() >= x && tempAnt.getY() >= y && tempAnt.getX() <= width + x && tempAnt.getY() <= height + y) {
+                temp.add(tempAnt);
+            }
+        }
+        if (getX() >= x && getY() >= y && getX() <= width + x && getY() <= height + y) {
+            temp.add(this);
+        }
+        return temp;
     }
 }

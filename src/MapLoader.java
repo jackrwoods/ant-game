@@ -51,22 +51,26 @@ public class MapLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mapName = file.get(0);
-        width = Integer.parseInt(file.get(1).substring(0,file.get(1).indexOf(','))); //get first number and convert it to an integer
-        height = Integer.parseInt(file.get(1).substring(file.get(1).indexOf(',') + 1)); //get second number and convert it to an integer
-        tileType = new int[height][width];
-        for (int i = 2; i < file.size(); i++) {
-            try {
-                int type = Integer.parseInt(file.get(i).substring(0, file.get(i).indexOf(",")));
-                int x = Integer.parseInt(file.get(i).substring(file.get(i).indexOf(",") + 1, file.get(i).indexOf("/")));
-                int y = Integer.parseInt(file.get(i).substring(file.get(i).indexOf("/") + 1));
-                tileType[y][x] = type;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-                System.out.println("Error: Tile located outside of map boundaries. Note: Map coordinates range from 0 to size - 1.");
+        if (file.size() > 0) {
+            mapName = file.get(0);
+            width = Integer.parseInt(file.get(1).substring(0,file.get(1).indexOf(','))); //get first number and convert it to an integer
+            height = Integer.parseInt(file.get(1).substring(file.get(1).indexOf(',') + 1)); //get second number and convert it to an integer
+            tileType = new int[height][width];
+            for (int i = 2; i < file.size(); i++) {
+                try {
+                    int type = Integer.parseInt(file.get(i).substring(0, file.get(i).indexOf(",")));
+                    int x = Integer.parseInt(file.get(i).substring(file.get(i).indexOf(",") + 1, file.get(i).indexOf("/")));
+                    int y = Integer.parseInt(file.get(i).substring(file.get(i).indexOf("/") + 1));
+                    tileType[y][x] = type;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                    System.out.println("Error: Tile located outside of map boundaries. Note: Map coordinates range from 0 to size - 1.");
+                }
             }
+            System.out.println("Map "+mapName+" loaded successfully from "+fileLoc+" with x:"+width+" y:"+height+" and "+(int) (file.size() - 2)+" entries.");
+        } else {
+            System.out.println("Map file is empty.");
         }
-        System.out.println("Map "+mapName+" loaded successfully from "+fileLoc+" with x:"+width+" y:"+height+" and "+(int) (file.size() - 2)+" entries.");
     }
 
     public String getName() {

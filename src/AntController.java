@@ -112,7 +112,7 @@ public class AntController {
     public void checkSelect() {
         selectList = new ArrayList<Ant>();
         for (int i = 0; i < renderList.size(); i++) {
-            if (sRect.contains(renderList.get(i).getShape())) {
+            if (sRect.contains(renderList.get(i).getShape()) && renderList.get(i).controllable()) {
                 selectList.add(renderList.get(i));
             }
         }
@@ -123,9 +123,7 @@ public class AntController {
         renderList = new ArrayList<Ant>();
         for (int i = 0; i < antList.size(); i++) {
             Ant temp = antList.get(i);
-            if (temp.getX() >= x && temp.getY() >= y && temp.getX() <= width + x && temp.getY() <= height + y) {
-                renderList.add(temp);
-            }
+            renderList.addAll(temp.getList(x, y, width, height));
         }
     }
 }

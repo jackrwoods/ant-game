@@ -49,6 +49,14 @@ public class MapController {
             oldX = x;
             oldY = y;
         }
+        if(userInput.isKeyDown(Input.KEY_EQUALS)) {
+            Input input = gc.getInput();
+            map.addTile(input.getMouseX()+x,input.getMouseY()+y,1);
+        }
+        if(userInput.isKeyDown(Input.KEY_BACK)) {
+            Input input = gc.getInput();
+            map.addTile(input.getMouseX()+x,input.getMouseY()+y,0);
+        }
         return new int[] {x,y};
     }
 

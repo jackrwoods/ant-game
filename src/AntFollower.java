@@ -4,6 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
@@ -16,18 +17,20 @@ import java.util.ArrayList;
  */
 public class AntFollower extends Ant {
 
-    private int tick;
+    private int tick, list, tarX, tarY;
     private Point finalPoint;
 
-    public AntFollower(int x, int y, double speed, double dir, Pathfinder path) { //For efficiency, maybe we can remove the pathfinder reference
+    public AntFollower(int x, int y, double speed, double dir, Pathfinder path, int list) { //For efficiency, maybe we can remove the pathfinder reference
         super(x, y, speed, dir, path);
         tick = 0;
+        this.list = list;
+        controllable = false;
     }
 
     @Override
     public void tick(GameContainer gc, StateBasedGame sbg) {
         tick++;
-        if (tick >= 30) {
+        if (tick >= 15 + list * 5) {
             super.tick(gc, sbg);
         }
     }
@@ -47,6 +50,10 @@ public class AntFollower extends Ant {
     @Override
     public void stop() {
         super.stop();
+        Vector2f direction = new Vector2f((float) this.x, (float) this.y);
+        float xDis = tarX - direction.x;
+        float yDis = tarY - direction.y;
+        dir = Math.atan2(yDis,  xDis) + Math.PI/2; //the direction in radians
     }
 
     @Override
@@ -55,22 +62,24 @@ public class AntFollower extends Ant {
     }
 
     //gives the ant a new target, and begins movement along the Leader's path
-    public void move(ArrayList<Point> currentPath, Point finalPoint) {
+    public void move(ArrayList<Point> currentPath, Point finalPoint, int tarX, int tarY) {
         this.finalPoint = finalPoint;
         this.currentPath = currentPath;
-        pathLoc = -1;
+        pathLoc = 0;
         updateWayPointCoord();
         tick = 0;
         moving = true;
+        this.tarX = tarX;
+        this.tarY = tarY;
     }
 
     @Override
     protected void updateWayPointCoord() {
-        if (pathLoc < currentPath.size() - 1) {
+        if (pathLoc < currentPath.size() - 2) {
             pathLoc++;
             wayPointX = (int) currentPath.get(pathLoc).getX() + 32 / 2;
             wayPointY = (int) currentPath.get(pathLoc).getY() + 32 / 2;
-        } else if (pathLoc == currentPath.size() - 1) {
+        } else if (pathLoc == currentPath.size() - 2) {
             pathLoc++;
             wayPointX = (int) finalPoint.getX();
             wayPointY = (int) finalPoint.getY();

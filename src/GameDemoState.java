@@ -159,7 +159,7 @@ public class GameDemoState implements GameState {
     @Override
     public int getID() {
         // TODO Auto-generated method stub
-        return 0;
+        return 1; //GameState ID
     }
 
     @Override
@@ -184,9 +184,6 @@ public class GameDemoState implements GameState {
     public void update(GameContainer gc, StateBasedGame sbg, int d) throws SlickException {
         // TODO Auto-generated method stub
         handler.tick(gc, sbg);
-        if (userInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            //handler.demoClick(userInput.getMouseX(),userInput.getMouseY());
-        }
     }
 
 }

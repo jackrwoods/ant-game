@@ -11,21 +11,21 @@ import java.util.ArrayList;
 //This stores all of the map data (ie: what tile should be rendered where)
 public class Map implements TileBasedMap{
 
-	private int width, height; //screen width and height
+	private int width, height, x, y; //screen width and height
 	private int[][] tileType; //stores an integer which represents the tile's type. Anything greater than 0 is a hazard
-	private String fileName;
-	private OutputStreamWriter writer;
-	private BufferedWriter bufWriter;
+	private String fileName, mapName;
 	MapLoader load;
+    MapWriter save;
     ArrayList<Tile> renderList;
 
 	public Map(int width, int height, String fileName) { //resolution for rendering, the file name
-		this.width = (int) width;
-		this.height = (int) height;
+		this.width = width;
+		this.height = height;
 		this.fileName = fileName; //stored in the ./maps directory
 		load = new MapLoader(fileName);
         tileType = load.getArray();
         createRenderList(0,0);
+        mapName = load.getName();
 	}
 
     //To save resources, only tiles that are currently on-screen are rendered
@@ -52,11 +52,13 @@ public class Map implements TileBasedMap{
         for (int i = 0; i < renderList.size(); i++) {
             renderList.get(i).render(gc, sbg, g, x, y);
         }
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public boolean blocked(PathFindingContext ctx, int x, int y) {
-        return tileType[y][x] >= 1; //change to 100
+        return tileType[y][x] >= 1; //TODO: change to 100
     }
 
     @Override
@@ -77,7 +79,12 @@ public class Map implements TileBasedMap{
     @Override
     public void pathFinderVisited(int x, int y) {}
 
-    public void pathTile(int x, int y) {
-        renderList.add(new Tile(x,y,2));
+    public void addTile(int x, int y, int type) {
+        x /= 32;
+        y /= 32;
+        tileType[y][x] = type;
+        save = new MapWriter(fileName, mapName, tileType);
+        save.saveValues();
+        createRenderList(x,y);
     }
 }

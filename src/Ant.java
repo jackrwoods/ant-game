@@ -20,6 +20,7 @@ public abstract class Ant extends GameObject {
     protected boolean moving, alive;
     protected Pathfinder path;
     protected ArrayList<Point> currentPath;
+    protected boolean controllable;
 
     public Ant(int x, int y, double speed, double dir, Pathfinder path) {
         super(ID.Ant);
@@ -38,6 +39,7 @@ public abstract class Ant extends GameObject {
         maxHP = 100;
         alive = true;
         pathLoc = 0;
+        controllable = true;
     }
 
     public void setXVel(double xVel)
@@ -102,12 +104,16 @@ public abstract class Ant extends GameObject {
         float tileY = y / 32;
         float endTileX = tarX/32;
         float endTileY = tarY/32;
-        this.tarX = tarX;
-        this.tarY = tarY;
-        currentPath = path.findPath(tileX, tileY, endTileX, endTileY);
-        moving = true;
-        wayPointX = (int) currentPath.get(1).getX() + 32/2;
-        wayPointY = (int) currentPath.get(1).getY() + 32/2;
+        if (endTileX == tileX && endTileY == tileY) {
+            System.out.println("Movement Error: Ant is already in target position.");
+        } else {
+            this.tarX = tarX;
+            this.tarY = tarY;
+            currentPath = path.findPath(tileX, tileY, endTileX, endTileY);
+            moving = true;
+            wayPointX = (int) currentPath.get(1).getX() + 32/2;
+            wayPointY = (int) currentPath.get(1).getY() + 32/2;
+        }
     }
 
     protected void updateWayPointCoord() {
@@ -155,6 +161,18 @@ public abstract class Ant extends GameObject {
         } else {
             return false;
         }
+    }
+
+    public ArrayList<Ant> getList(int x, int y, int width, int height) {
+        ArrayList<Ant> temp = new ArrayList<Ant>();
+        if (getX() >= x && getY() >= y && getX() <= width + x && getY() <= height + y) {
+            temp.add(this);
+        }
+        return temp;
+    }
+
+    public boolean controllable() {
+        return controllable;
     }
 
     public int getX()
